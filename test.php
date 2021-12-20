@@ -1,5 +1,4 @@
 <!-- W3S PHP Required / display the error messages Ex. -->
-
 <!DOCTYPE HTML>  
 <html>
 <head>

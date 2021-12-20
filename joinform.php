@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $IDErr = "ID is required";
     } else {
         $ID = test_input($_POST["ID"]);
-        if (!preg_match(""));
+        if (!preg_match("/^[A-Z|a-z][A-Za-z|0-9|_]{7,27}$/g", $ID)) {
             $IDErr = "Please enter your ID.";
         }
     }
@@ -70,5 +70,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         return $data;
     }
 ?>
+
+<h2>PHP form Validation Example</h2>
+<p><span class="error">* required field</span></p>
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+    ID: <input type="text" name="ID" value="<?php echo $ID;?>">
+    <span class="error">* <?php echo $IDErr;?></span>
+    <br>
+    <br>
+    PW: <input type="text" name="PW" value="<?php echo $PW;?>">
+    <span class="error">* <?php echo $PWErr;?></span>
+    <br>
+    <br>
+    Name: <input type="text" name="name" value="<?php echo $name;?>">
+    <span class="error">* <?php echo $nameErr;?></span>
+    <br>
+    <br>
+    PhoneN : <input type="text" name="phoneN" value="<?php echo $phoneN;?>">
+    <span class="error">* <?php echo $phoneNErr;?></span>
+    <br>
+    <br>
+    E-mail: <input type="text" name="email" value="<?php echo $email;?>">
+    <span class="error">* <?php echo $emailErr;?></span>
+    <br>
+    <br>
+    <input type="submit" name="submit" value="Submit">
+</form>
+
+<?php
+    echo "<h2>Your Input:</h2>";
+    echo $ID;
+    echo "<br>";
+    echo $PW;
+    echo "<br>";
+    echo $name;
+    echo "<br>";
+    echo $phoneN;
+    echo "<br>";
+    echo $email;
+?>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
 
 
