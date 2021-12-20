@@ -135,8 +135,8 @@ $userName = "둔둔이";
     </ol>
     
     <!-- 자동으로 목록 만들기 (진짜코드) -->
-    <h1><a href="index.php">이거 클릭하면 인덱스 page로 이동!</a></h1>
-    <h1><a href="test.php">이거 클릭하면 테스트 page로 이동!</a></h1>
+    <h1><a href="index.php">클릭하면 인덱스 page로 이동!</a></h1>
+    <h1><a href="test.php">클릭하면 테스트 page로 이동!</a></h1>
     <ol>
         <?php
             $list = scandir('data');

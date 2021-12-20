@@ -1,4 +1,3 @@
-<!-- 함수의 형식 4-20-3 pg175 -->
 <?php
   function print_title() {
     if(isset($_GET['id'])) {
@@ -17,7 +16,7 @@
   }
   
   function print_list() {
-    $list = scandir('data');  // 읽어오는 것
+    $list = scandir('data');
     $i = 0;
     while ($i < count($list)) {
       if($list[$i] != '.') {
@@ -30,15 +29,13 @@
   }
 ?>
 
-<!-- 이제 여기서부터 호출만 해주면 된다 -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><?php print_title(); ?></title>
+  <title>Document</title>
 </head>
 <body>
   <h1><a href="index.php">WEB</a></h1>
@@ -49,21 +46,23 @@
   </ol>
 
   <a href="create.php"><button>create</button></a>
-    <?php if(isset($_GET['id'])) { ?>
-      <a href="update.php?id=<?= $_GET['id']; ?>"><button>update</button></a>
-      <form action="delete_process.php" method="post">
-        <input type="hidden" name="id" value="<?= $_GET['id'] ?>" >
-        <input type="submit" value="delete">
-      </form>
-    <?php } ?>
+  <?php if(isset($_GET['id'])) { ?>
+    <a href="update.php?id=<?=$_GET['id']; ?>">update</a>
+  <?php } ?>
+  <form action="update_process.php" method="post">
+    <input type="hidden" name="old_title" value="<?=$_GET['id'] ?>"> 
+    <p>
+      <input type="text" name="title" placeholder="Title" value="<?php print_title();?>">
+    </p>
+    <p>
+      <textarea name="description" placeholder="Description"><?php print_description();?></textarea>
+    </p>
+    <p>
+      <input type="submit" value="Submit">
+    </p>
 
-  <h2>
-    <?php
-    print_title();
-    ?>
-  </h2>
-  <?php
-    print_description();
-  ?>
+  </form>
+    
+
 </body>
 </html>

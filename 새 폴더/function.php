@@ -11,13 +11,6 @@
     }  // 지금 만든 함수를 html의 맨 위에 위치시킨다(정리할 겸, 가독성도 좋게 하기 위해)
 ?>
         <!-- 현재 타이틀 태그와 바디 태그에서 똑같은 함수를 코딩한 것이다. // 그래서 이 코드들을 하나의 함수로 묶어 보자! -->
-
-
-
-
-
-
-
 <html>
     <head>
         <meta charset="utf-8">
@@ -34,15 +27,15 @@
             } else {
                 echo "Welcome!";
             }
-            ?>
+        ?>
     
-        <h1><a href="function.php">위에 출력된 것은 title / 아래에 출력 된 것은 body</a></h1>
+        <h1><a href="function.php">WEB</a></h1>
         <ol>
-            <li><a href="#">여기는 네이버</a></li>
-            <li><a href="#">여기는 구글</a></li>
-            <li><a href="#">여기는 유튜브</a></li>
-            <li><a href="#">여기는 청주</a></li>
-            <li><a href="#">여기는 학원</a></li>
+            <li><a href="#">네이버</a></li>
+            <li><a href="#">구글</a></li>
+            <li><a href="#">유튜브</a></li>
+            <li><a href="#">청주</a></li>
+            <li><a href="#">학원</a></li>
         </ol>
         <h1>php 연습중이야</h1>
         <h4>
@@ -50,6 +43,22 @@
                 print_title();
             ?>
         </h4>
+        <form action="form.php" method="get">
+        <p>
+            <input type="text" name="title" placeholder="검색">
+            <!-- placeholder="블라블라"를 지정하면 텍스트"~"이 출력된다. -->
+        </p>
+        <p>
+            <textarea name="description"></textarea>
+        </p>
+        <p>
+            <input type="submit">
+        </p>
+    </form>
+    
+    
+
+
 
 
     </body>

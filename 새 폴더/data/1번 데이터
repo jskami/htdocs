@@ -1,0 +1,1 @@
+index.php에서 create를 눌러 form.html(현재 화면)으로 이동! 여기서 사용자는 정보를 입력! 그리고 create를 누르면 data폴더로 정보가 생성! 그거를 다시 index.php에 뿌려준다!
