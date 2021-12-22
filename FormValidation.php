@@ -23,17 +23,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $id = test_input($_POST["id"]);
         //check if id 8글자 이상, 1개이상의 대문자, 1개이상의 숫자
-        if(!preg_match("^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,}$", $id)) {
+        if(!preg_match("(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,}$", $id)) {
         $idErr = "Only id 8글자 이상, 1개이상의 대문자, 1개이상의 숫자";
         }
     }
-}
+
 
     if (empty($_POST["pw"])) {
         $pwErr = "PW is required";
     } else {
         $pw = test_input($_POST["pw"]);
-        if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm", $pw)) {
+        if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/m", $pw)) {
             $pwErr = "PW is required";
         }
     }
@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $nameErr = "Name is required";
         } else {
             $name = test_input($_POST["name"]);
-        if (!preg_match("/^[가-힣]{1,4}$", $name)) {
+        if (!preg_match("/^[가-힣]{3,12}$/", $name)) {
             $nameErr = "It does not allow characters and spaces";
         }
     }
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $phoneNErr = " phoneNum is required";
     } else {
         $phoneN = test_input($_POST["phoneN"]);
-        if (!preg_match("/09(0[1-2]|1[\d]|3[\d]|2[0-1])[\d]{3}[\d]{4}/g" , $phoneN)) {
+        if (!preg_match("/09(0[1-2]|1[\d]|3[\d]|2[0-1])[\d]{3}[\d]{4}/" , $phoneN)) {
             $phoneN = "phoneNum is required";
         }
     }
@@ -64,23 +64,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $emailErr = "Invalid email format";
         }
     }
-
-    function Validation($data) {
+}
+    function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
     }
+
 ?>
 
 <h2>PHP form Validation Example</h2>
 <p><span class="error">* required field</span></p>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    ID: <input type="text" name="ID" value="<?php echo $id;?>">
+<form method="post" action="<?=htmlspecialchars($_SERVER["PHP_SELF"])?>">
+    ID: <input type="text" name="id" value="<?php echo $id;?>">
     <span class="error">* <?php echo $idErr;?></span>
     <br>
     <br>
-    PW: <input type="text" name="PW" value="<?php echo $pw;?>">
+    PW: <input type="text" name="pw" value="<?php echo $pw;?>">
     <span class="error">* <?php echo $pwErr;?></span>
     <br>
     <br>
