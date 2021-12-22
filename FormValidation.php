@@ -14,25 +14,27 @@
     번호 : 000-0000-0000
     E-mail : 일반적인 규칙 -->
 <?php
-$IDErr = $PWErr = $nameErr = $phoneNErr = $emailErr = "";
-$ID = $PW = $name = $phoneN = $email = "";
+$idErr = $pwErr = $nameErr = $phoneNErr = $emailErr = "";
+$id = $pw = $name = $phoneN = $email = "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["ID"])) {
-        $IDErr = "ID is required";
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+    if(empty($_POST["id"])) {
+        $idErr = "ID is required";
     } else {
-        $ID = test_input($_POST["ID"]);
-        if (!preg_match("/^[A-Z|a-z][A-Za-z|0-9|_]{7,27}$/g", $ID)) {
-            $IDErr = "Please enter your ID.";
+        $id = test_input($_POST["id"]);
+        //check if id 8글자 이상, 1개이상의 대문자, 1개이상의 숫자
+        if(!preg_match("^(?=.[A-Za-z])(?=.\d)[A-Za-z\d]{8,}$", $id)) {
+        $idErr = "Only id 8글자 이상, 1개이상의 대문자, 1개이상의 숫자";
         }
     }
+}
 
-    if (empty($_POST["PW"])) {
-        $PWErr = "PW is required";
+    if (empty($_POST["pw"])) {
+        $pwErr = "PW is required";
     } else {
-        $PW = test_input($_POST["PW"]);
-        if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm", $PW)) {
-            $PWErr = "PW is required";
+        $pw = test_input($_POST["pw"]);
+        if (!preg_match("/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm", $pw)) {
+            $pwErr = "PW is required";
         }
     }
 
@@ -40,8 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nameErr = "Name is required";
         } else {
             $name = test_input($_POST["name"]);
-        if (!preg_match("/^[a-zA-Z-' ]*$/",$name)) {
-            $nameErr = "Only letters and white space allowed";
+        if (!preg_match("/^[가-힣]{1,4}$", $name)) {
+            $nameErr = "It does not allow characters and spaces";
         }
     }
 
@@ -74,12 +76,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>PHP form Validation Example</h2>
 <p><span class="error">* required field</span></p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    ID: <input type="text" name="ID" value="<?php echo $ID;?>">
-    <span class="error">* <?php echo $IDErr;?></span>
+    ID: <input type="text" name="ID" value="<?php echo $id;?>">
+    <span class="error">* <?php echo $idErr;?></span>
     <br>
     <br>
-    PW: <input type="text" name="PW" value="<?php echo $PW;?>">
-    <span class="error">* <?php echo $PWErr;?></span>
+    PW: <input type="text" name="PW" value="<?php echo $pw;?>">
+    <span class="error">* <?php echo $pwErr;?></span>
     <br>
     <br>
     Name: <input type="text" name="name" value="<?php echo $name;?>">
@@ -99,9 +101,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php
     echo "<h2>Your Input:</h2>";
-    echo $ID;
+    echo $id;
     echo "<br>";
-    echo $PW;
+    echo $pw;
     echo "<br>";
     echo $name;
     echo "<br>";
@@ -112,13 +114,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
