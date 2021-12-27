@@ -17,9 +17,10 @@
     // 1.
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $phonenub = $_POST['phonenub'];
 
     // 2.
-    if(empty($username) || empty($password)) {
+    if(empty($username) || empty($password) || empty($phonenub)) {
         echo("<script>alert('유저명 또는 비밀번호가 공백입니다.');</script>");
         header('Location: step1_RegistForm.php');
     }
@@ -48,7 +49,9 @@
     // 6.2 ... 다음 단계로 진행-
 
     // 7.
-    $sql = "INSERT INTO users(username, userpwd) VALUES('". $username . "','" . $password ."')"; //값을 집어 넣을거야 그래서 인서트 인투 쓰는거야
+    // $sql = "INSERT INTO users(username, userpwd) VALUES('". $username . "','" . $password ."')"; //값을 집어 넣을거야 그래서 인서트 인투 쓰는거야
+    $sql = "INSERT INTO users(username, userpassword) VALUES('". $username . "', sha2('" . $password ."', 256))"; // 비밀번호를 암호화 하여 삽입하기 성공(21.12.27)
+
 
     // 8.
     $result = mysqli_query($dbconn, $sql);

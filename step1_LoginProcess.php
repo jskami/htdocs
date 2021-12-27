@@ -12,7 +12,7 @@
     // 1.
     $username = $_POST['username']; //앞에 유저네임은 php에서 쓰는 이름이고 뒤에 유저네임은 폼 화면에서 넘어온 이름이다.
     $password = $_POST['password']; //앞에 패스워드은 php에서 쓰는 이름이고 뒤에 패스워드은 폼 화면에서 넘어온 이름이다.
-
+    
     // 2.
     // 사용자명 또는 비밀번호 중 하나라도 입력하지 않았으면
     // 다시 로그인폼화면으로 돌려보낸다.
@@ -33,12 +33,20 @@
     }
 
     // 4. 질의어(sql) 구성
-    $sql = "SELECT userpwd FROM users WHERE username='".$username."'";
-    
-    // 5. 실행하고 결과 돌려받기
-    $resultset = mysqli_query($dbconn, $sql);
+    // 방법1. $sql = "SELECT userpwd FROM users WHERE username='".$username."'";
+    // $sql = "SELECT * FROM users WHERE username ='" .$username."' and userpassword = sha2('". $password ."', 256)";
 
-    while($row = mysqli_fetch_array($resultset)) {  // $resultset의 여러개를 물어오겠다!-의 의미
+    $sql = $dbconn->prepare("SELECT * FROM users1 WHERE username = ? and userpwd = sha2(?,256)");
+    $sql -> bind_param("ss", $username, $password);
+
+    // 방법2. prepared statment...
+    
+
+    // 5. 실행하고 결과 돌려받기
+    // $resultset = mysqli_query($dbconn, $sql); // 연결된 dbconn데이터베이스에 $sql질의어를 실행하라
+    $sql->execute();  //PDO방법, result set값은 안갖고 온 상태
+
+    /* while($row = mysqli_fetch_array($resultset)) {  // $resultset의 여러개를 물어오겠다!-의 의미
         // 6.
         if( $password == $row['userpwd']) {  // 사용자가 입력한 $password 가 db안에 있는 userpwd와 일치하다면-의 의미
             header('Location: step1_LoginSuccess.php'); // 로그인에 성공하면 성공php로 이동
@@ -46,5 +54,15 @@
             echo '비밀번호가 틀렸습니다!';  // alert를 쓰는게 좋다. 지금은 자바스크립트를 쓰면 복잡하니까 에코로 일단 대체!
             header('Location: step1_LoginForm.php');  //틀렸다면 다시 로그인 폼으로 이동
         }
+    }*/
+
+    // 암호화된 비번과 사용자의 비번을 비교하여 로그인 성공하는 함수 ㄱㄱ(21.12.27)
+    $result = $sql->get_result(); //get_result메서드를 이용해서 47라인의 엑시큐트를 실행
+    if($result > 0) {
+        echo "로그인에 성공!";
+    } else {
+        header('Location: step1_LoginForm.php');
     }
+    
+
 ?>
